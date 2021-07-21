@@ -36,10 +36,10 @@ class Main extends Component {
     }
 
     async componentDidMount() {
-
-        let localstore = await AsyncStorage.getItem("data")
-        localstore = JSON.parse(localstore);
-        if (typeof localstore == "object") {
+        let localstore = {}
+        localstore = await AsyncStorage.getItem("data")
+        if (localstore) {
+            localstore = JSON.parse(localstore)
             this.setState({ data: localstore, loading: false })
         } else {
             let res = await GET("/b/60e7f4ebf72d2b70bbac2970")
@@ -78,6 +78,7 @@ class Main extends Component {
         }
     }
     render() {
+
         let data = this.state.search ? this.state.newsearchdata : this.state.data
         return (
             <View style={styles.container}>
